@@ -1,0 +1,42 @@
+volumes:
+    hpp_poject:
+
+networks:
+  front-tier:
+  back-tier:
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+    ports:
+      - "5432:5432"
+    networks:
+      - back-tier
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - back-tier
+      - front-tier
+
+  tracking:
+    restart: always
+    build: ./mlflow
+    image: mlflow_server
+    container_name: mlflow_server
+    depends_on:
+        - db
+    ports:
+        - "5000:5000"
+    networks:
+        - front-tier
+        - back-tier
+    command: mlflow server --backend-store-uri postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB} --host 0.0.0.0        
