@@ -1,0 +1,45 @@
+import requests
+
+house = {
+  "MSSubClass":20,
+  "LotFrontage":90.0,
+  "LotArea":11694,
+  "OverallQual":9,
+  "OverallCond":5,
+  "YearBuilt":2007,
+  "YearRemodAdd":2007,
+  "MasVnrArea":452.0,
+  "BsmtFinSF1":48,
+  "BsmtFinSF2":0,
+  "BsmtUnfSF":1774,
+  "TotalBsmtSF":1822,
+  "1stFlrSF":1828,
+  "2ndFlrSF":0,
+  "LowQualFinSF":0,
+  "GrLivArea":1828,
+  "BsmtFullBath":0,
+  "BsmtHalfBath":0,
+  "FullBath":2,
+  "HalfBath":0,
+  "BedroomAbvGr":3,
+  "KitchenAbvGr":1,
+  "TotRmsAbvGrd":9,
+  "Fireplaces":1,
+  "GarageYrBlt":2007.0,
+  "GarageCars":3,
+  "GarageArea":774,
+  "WoodDeckSF":0,
+  "OpenPorchSF":108,
+  "EnclosedPorch":0,
+  "3SsnPorch":0,
+  "ScreenPorch":260,
+  "PoolArea":0,
+  "MiscVal":0,
+  "MoSold":7,
+  "YrSold":2007
+}
+
+
+url = 'http://localhost:9696/predict'
+response = requests.post(url, json=house)
+print(response.json())
