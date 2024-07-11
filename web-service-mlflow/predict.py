@@ -1,13 +1,11 @@
 import os
-import pickle
-from dotenv import load_dotenv
 import mlflow
 from flask import Flask, request, jsonify
 import pandas as pd
 
-load_dotenv()
-
-MLFLOW_TRACKING_URI = f'postgresql://{os.environ["POSTGRES_USER"]}:{os.environ["POSTGRES_PASSWORD"]}@localhost:5432/{os.environ["POSTGRES_DB"]}'
+# MLFLOW_TRACKING_URI = f'postgresql://{os.environ["POSTGRES_USER"]}:{os.environ["POSTGRES_PASSWORD"]}@db:5432/{os.environ["POSTGRES_DB"]}'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = './silicon-data-423218-q0-179a2dbeb763.json'
+MLFLOW_TRACKING_URI = 'http://localhost:5000'
 mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
 model_name = "pipeline-random-forest-reg-model"
@@ -42,6 +40,6 @@ def predict_endpoint():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=9696)
+  app.run(debug=True, host='0.0.0.0', port=9696)
   
   
