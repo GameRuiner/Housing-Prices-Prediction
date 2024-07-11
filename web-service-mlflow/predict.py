@@ -3,13 +3,12 @@ import mlflow
 from flask import Flask, request, jsonify
 import pandas as pd
 
-# MLFLOW_TRACKING_URI = f'postgresql://{os.environ["POSTGRES_USER"]}:{os.environ["POSTGRES_PASSWORD"]}@db:5432/{os.environ["POSTGRES_DB"]}'
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = './silicon-data-423218-q0-179a2dbeb763.json'
-MLFLOW_TRACKING_URI = 'http://localhost:5000'
+MLFLOW_TRACKING_URI = 'http://tracking:5000' 
 mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
 model_name = "pipeline-random-forest-reg-model"
-model_version = 1
+model_version = 2
 
 model_uri = f"models:/{model_name}/{model_version}"
 model = mlflow.sklearn.load_model(model_uri)

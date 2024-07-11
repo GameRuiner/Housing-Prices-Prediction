@@ -4,3 +4,4 @@ boto3
 gunicorn
 flask
 pandas
+google-cloud-storage
