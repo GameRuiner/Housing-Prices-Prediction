@@ -1,13 +1,17 @@
 FROM python:3.9.19-bullseye
 
-RUN pip install -U pip
-RUN pip install pipenv 
+# Upgrade pip to the latest version
+RUN pip install --upgrade pip
 
 WORKDIR /app
 
 COPY . /app
 
-RUN pip install -r requirements.txt
+# Upgrade pip to the latest version
+RUN pip install --upgrade pip
+
+# Install python packages
+RUN pip install -v -r /app/requirements.txt
 
 COPY [ "predict.py", "./" ]
 

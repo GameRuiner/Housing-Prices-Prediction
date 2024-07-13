@@ -1,6 +1,5 @@
 mlflow
 psycopg2
-boto3
 gunicorn
 flask
 pandas
