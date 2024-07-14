@@ -3,6 +3,7 @@ import mlflow
 from flask import Flask, request, jsonify
 import pandas as pd
 
+# TODO: move to config
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = './silicon-data-423218-q0-179a2dbeb763.json'
 MLFLOW_TRACKING_URI = 'http://tracking:5000' 
 mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
