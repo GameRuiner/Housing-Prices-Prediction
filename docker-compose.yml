@@ -69,11 +69,22 @@ services:
     ports:
       - "5432:5432"
 
+  grafana:
+    image: grafana/grafana
+    user: "472"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config/grafana_datasources.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
+      - ./config/grafana_dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
+      - ./dashboards:/opt/grafana/dashboards
+    restart: always
+
   adminer:
     image: adminer
     restart: always
     ports:
-      - "8081:8081"
+      - "8081:8080"
 
   tracking:
     restart: always

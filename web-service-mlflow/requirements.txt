@@ -4,3 +4,4 @@ gunicorn
 flask
 pandas
 google-cloud-storage
+evidently
