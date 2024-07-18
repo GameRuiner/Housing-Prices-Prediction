@@ -1,6 +1,4 @@
-import requests
-
-house = {
+{
   "MSSubClass":20,
   "LotFrontage":90.0,
   "LotArea":11694,
@@ -38,8 +36,3 @@ house = {
   "MoSold":7,
   "YrSold":2007
 }
-
-
-url = 'http://localhost:9696/predict'
-response = requests.post(url, json=house)
-print(response.json())
