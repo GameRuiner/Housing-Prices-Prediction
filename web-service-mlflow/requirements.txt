@@ -5,3 +5,5 @@ flask
 pandas
 google-cloud-storage
 evidently
+psycopg
+psycopg_binary

@@ -8,10 +8,10 @@ datasources:
     type: postgres
     access: proxy
     url: db:5432
-    database: grafana
-    user: ${POSTGRES_USER}
+    database: evidently_monitoring
+    user: postgres
     secureJsonData:
-      password: ${POSTGRES_PASSWORD}
+      password: 'example'
     jsonData:
       sslmode: 'disable'
-      database: grafana
+      database: evidently_monitoring
