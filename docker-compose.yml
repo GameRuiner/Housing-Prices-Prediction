@@ -55,6 +55,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
     volumes:
       - ./input:/tmp/input
+      - ./web-service-mlflow:/app
     build: ./web-service-mlflow
     image: web_service
     container_name: web_service
