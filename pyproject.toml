@@ -1,0 +1,24 @@
+[tool.black]
+line-length = 120
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.pylint.format]
+max-line-length = 120
+
+[tool.pylint.messages_control]
+disable = [
+    "missing-function-docstring",
+    "missing-final-newline",
+    "missing-class-docstring",
+    "missing-module-docstring",
+    "invalid-name",
+    "too-few-public-methods",
+    "pointless-statement",
+    "wrong-import-order",
+    "not-context-manager"
+]
+
+
+[tool.isort]
+profile = "black"

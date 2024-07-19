@@ -162,3 +162,5 @@ cython_debug/
 #.idea/
 
 silicon-data-423218-q0-179a2dbeb763.json
+
+/logs
