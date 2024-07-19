@@ -3,6 +3,7 @@ import os
 
 import pandas as pd
 import psycopg
+from dotenv import load_dotenv
 from evidently import ColumnMapping
 from evidently.metrics import (
     ColumnDriftMetric,
@@ -13,6 +14,8 @@ from evidently.report import Report
 from flask import Flask, jsonify, request
 
 import mlflow
+
+load_dotenv()
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./config/silicon-data-423218-q0-179a2dbeb763.json"
 MLFLOW_TRACKING_URI = "http://tracking:5000"
@@ -66,17 +69,26 @@ cat_features = [
 ]
 
 column_mapping = ColumnMapping(
-    target=None, prediction="SalePrice", numerical_features=num_features, categorical_features=cat_features
+    target=None,
+    prediction="SalePrice",
+    numerical_features=num_features,
+    categorical_features=cat_features,
 )
 
 report = Report(
-    metrics=[ColumnDriftMetric(column_name="SalePrice"), DatasetDriftMetric(), DatasetMissingValuesMetric()]
+    metrics=[
+        ColumnDriftMetric(column_name="SalePrice"),
+        DatasetDriftMetric(),
+        DatasetMissingValuesMetric(),
+    ]
 )
 
-conninfo = (
-    f"host=db port=5432 dbname=evidently_monitoring user={os.environ['POSTGRES_USER']} "
-    f"password={os.environ['POSTGRES_PASSWORD']}"
-)
+conninfo = ""
+if os.getenv("POSTGRES_USER"):
+    conninfo = (
+        f"host=db port=5432 dbname=evidently_monitoring user={os.environ['POSTGRES_USER']} "
+        f"password={os.environ['POSTGRES_PASSWORD']}"
+    )
 
 
 def prep_db():
@@ -96,8 +108,8 @@ def prep_db():
         if len(res.fetchall()) == 0:
             conn.execute("create database evidently_monitoring;")
         with psycopg.connect(
-        conninfo,
-        autocommit=True,
+            conninfo,
+            autocommit=True,
         ) as conn:
             conn.execute(create_table_statement)
 
@@ -116,6 +128,7 @@ app = Flask("house-price-prediction")
 
 model_name = "pipeline-random-forest-reg-model"
 model_uri = create_model_uri(model_name, 2)
+
 
 @app.route("/predict", methods=["POST"])
 def predict_endpoint():
@@ -136,13 +149,16 @@ def predict_endpoint():
         "insert into metrics(timestamp, prediction_drift, num_drifted_columns, share_missing_values) "
         "values (%s, %s, %s, %s)"
     )
-    with psycopg.connect(
-        conninfo
-    ) as conn:
+    with psycopg.connect(conninfo) as conn:
         with conn.cursor() as curr:
             curr.execute(
                 query,
-                (datetime.datetime.now(), prediction_drift, num_drifted_columns, share_missing_values),
+                (
+                    datetime.datetime.now(),
+                    prediction_drift,
+                    num_drifted_columns,
+                    share_missing_values,
+                ),
             )
     result = {"sale_price": pred, "model_name": model_name}
     return jsonify(result)
