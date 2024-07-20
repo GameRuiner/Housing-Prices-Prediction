@@ -4,7 +4,6 @@ from datetime import datetime
 import joblib
 import pandas as pd
 from airflow.operators.python import PythonOperator
-from airflow import DAG
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import mean_absolute_error
@@ -12,6 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 
 import mlflow
+from airflow import DAG
 
 
 def load_data():

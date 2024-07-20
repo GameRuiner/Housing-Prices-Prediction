@@ -16,7 +16,8 @@ disable = [
     "too-few-public-methods",
     "pointless-statement",
     "wrong-import-order",
-    "not-context-manager"
+    "not-context-manager",
+    "ungrouped-imports"
 ]
 
 
