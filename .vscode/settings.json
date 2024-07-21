@@ -3,5 +3,11 @@
     "web-service-mlflow"
   ],
   "python.testing.unittestEnabled": false,
-  "python.testing.pytestEnabled": true
+  "python.testing.pytestEnabled": true,
+  "gitflow4code.features": [
+    {
+      "name": "feature/github_ci",
+      "base": "develop"
+    }
+  ]
 }

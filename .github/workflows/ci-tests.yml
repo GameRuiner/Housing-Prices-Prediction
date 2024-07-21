@@ -1,0 +1,43 @@
+name: CI-Tests
+on:
+  pull_request:
+    branches:
+      - 'develop'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        working-directory: "web-service-mlflow"
+        run: pip install requirements.txt
+
+      - name: Run Unit tests
+        working-directory: "web-service-mlflow"
+        run: pytest tests/
+
+      - name: Lint
+        working-directory: "web-service-mlflow"
+        run: pylint --recursive=y .
+
+      - name: Integration Test
+        working-directory: 'web-service-mlflow/integraton-test'
+        run: |
+          . run.sh
+
+  tf-plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v2
+      - name: TF plan
+        id: plan
+        working-directory: 'terraform'
+        run: |
+          terraform init && terraform plan
