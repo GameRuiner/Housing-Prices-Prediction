@@ -1,6 +1,6 @@
-pytest = "*"
-deepdiff = "*"
-pylint = "==3.2.5"
-black = "*"
-isort = "*"
-pre-commit = "*"
+pytest
+deepdiff
+pylint == 3.2.5
+black
+isort
+pre-commit
