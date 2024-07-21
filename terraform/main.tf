@@ -1,3 +1,8 @@
+provider "google" {
+  project = var.project
+  region = var.region
+}
+
 resource "google_storage_bucket" "model_storage" {
   name     = "mlflow-models-bucket"
   location = "europe-north1"
