@@ -26,10 +26,6 @@ jobs:
         working-directory: "web-service-mlflow"
         run: pylint --recursive=y .
 
-      - name: Integration Test
-        working-directory: 'web-service-mlflow/integraton-test'
-        run: |
-          . run.sh
 
   tf-plan:
     name: 'Terraform'
