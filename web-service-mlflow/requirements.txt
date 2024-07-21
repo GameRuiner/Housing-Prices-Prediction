@@ -1,9 +1,9 @@
-mlflow
-psycopg2
-gunicorn
-flask
-pandas
-google-cloud-storage
-evidently
-psycopg
-psycopg_binary
+mlflow == 2.14.3
+psycopg2 == 2.9.9
+gunicorn == 22.0.0
+flask == 3.0.3
+pandas == 2.2.2
+google-cloud-storage == 2.17.0
+evidently == 0.4.31
+psycopg == 3.2.1
+psycopg_binary == 3.2.1
