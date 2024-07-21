@@ -16,7 +16,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: "web-service-mlflow"
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt && pip install -r dev-requirements.txt
 
       - name: Run Unit tests
         working-directory: "web-service-mlflow"
