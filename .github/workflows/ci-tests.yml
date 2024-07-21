@@ -45,6 +45,10 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
     - name: Terraform Init
-      run: terraform init
+      run: |
+        cd terraform
+        terraform init
     - name: Terraform Plan
-      run: terraform plan
+      run: |
+        cd terraform
+        terraform plan
